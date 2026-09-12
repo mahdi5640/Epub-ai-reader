@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7f3ec" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="AI Reader" />
+  <title>EPUB AI Reader</title>
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <button id="openBtn" class="primary">باز کردن EPUB</button>
+    <input id="fileInput" type="file" accept=".epub,application/epub+zip" hidden />
+    <div class="brand">EPUB AI Reader</div>
+    <div class="top-actions">
+      <button id="wordsBtn" class="ghost" aria-label="واژه‌های ذخیره‌شده">★</button>
+      <button id="themeBtn" class="ghost" aria-label="تغییر تم">☾</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="emptyState" class="empty-state">
+      <div class="book-icon">📖</div>
+      <h1>کتابت را باز کن</h1>
+      <p>روی یک کلمه یا جمله انتخاب کن تا معنی، ترجمه یا توضیح گرامری بگیری.</p>
+      <button id="emptyOpenBtn" class="primary big">انتخاب فایل EPUB</button>
+      <p class="privacy-note">فایل کتاب داخل مرورگر می‌ماند؛ فقط متن انتخابی برای توضیح ارسال می‌شود.</p>
+    </section>
+
+    <section id="readerWrap" class="reader-wrap hidden">
+      <div id="viewer"></div>
+      <nav class="reader-nav">
+        <button id="prevBtn">قبلی</button>
+        <div id="locationText">—</div>
+        <button id="nextBtn">بعدی</button>
+      </nav>
+    </section>
+  </main>
+
+  <div id="selectionBar" class="selection-bar hidden" role="dialog" aria-live="polite">
+    <div id="selectedPreview" class="selected-preview"></div>
+    <div class="actions">
+      <button data-mode="word">معنی کلمه</button>
+      <button data-mode="translate">ترجمه</button>
+      <button data-mode="explain">توضیح</button>
+      <button data-mode="grammar">گرامر</button>
+    </div>
+  </div>
+
+  <aside id="answerSheet" class="answer-sheet hidden">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <strong id="sheetTitle">توضیح</strong>
+      <button id="closeSheet" class="ghost">✕</button>
+    </div>
+    <div id="sheetSelection" class="sheet-selection"></div>
+    <div id="answer" class="answer"></div>
+    <button id="saveWordBtn" class="save-word hidden">☆ ذخیره در واژه‌ها</button>
+  </aside>
+
+  <aside id="wordsSheet" class="answer-sheet hidden">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <strong>واژه‌های ذخیره‌شده</strong>
+      <button id="closeWords" class="ghost">✕</button>
+    </div>
+    <div id="wordsList" class="words-list"></div>
+  </aside>
+
+  <script src="/app.js"></script>
+</body>
+</html>
